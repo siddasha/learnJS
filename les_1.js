@@ -1,29 +1,25 @@
 "use strict"
 
-function sum(oper) {
-    let res = oper;
-    function sum_1(oper_1){
-        res += oper_1;
-        console.log(res);
-        return sum_1;
+//задача преобразовать функцию вида f(a, b, c) в f(a)(b)(c) и посчитать сумму аргументов
+
+
+const sum = (a, b, c) => a+b+c;
+
+function curry (fn){
+    const n = fn.length;
+    function divideFn(n, args){
+        return function actualDivideFn(a){
+            if(n <= 1) {
+                return fn (...args, a); 
+            }
+            return divideFn (n-1, [...args, a]);
+        }
     }
-    //console.log(res);
-    return sum_1;
+    return divideFn(n, []);
 }
 
-sum(12)(13)(14)(100)(15); //154
+const _sum = curry (sum);
+console.log(_sum(1)(55)(49));
 
-//первый вариант
-let sumer = {
-    res: 0,
-    sum(oper) {
-        this.res += oper;
-        return this;
-    },
-    show() {
-        alert (this.res);
-        return this;
-    },
-};
 
-sumer.sum(111).sum(220).sum(20).show(); //351
+
