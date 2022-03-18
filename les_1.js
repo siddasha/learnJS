@@ -37,3 +37,22 @@ const curry = fn => {
 
 const _sum = curry (sum);
 console.log(_sum(1)(55)(444));
+
+//sumInf считает сумм, но выводит результат только в alert,
+//а как передать результат иначе я не придумала еще (((
+function sumInf (n) {
+    let result = n;
+    function devideFnSumInf(oper_1){
+        result += oper_1;
+        return devideFnSumInf;
+    }
+    // если был бы alert
+    devideFnSumInf.toString = function() {
+        return result;
+    };
+    return devideFnSumInf; 
+}
+
+console.log (sumInf(12)(13)(14)(100)(15)); 
+
+
